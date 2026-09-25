@@ -74,6 +74,8 @@ const Review = () => {
     setReason("");
   };
 
+  // Once a user confirms the correct category, persist the correction and remove
+  // the transaction from the review queue so the analyst can focus on the next item.
   const handleSave = async (transactionId) => {
     if (!selectedCategory) {
       alert("Please select a category.");

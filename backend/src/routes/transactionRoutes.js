@@ -5,6 +5,7 @@ const {
   uploadTransactions,
   getTransactions,
   categorizeAllTransactions,
+  getAnalystContextController,
   getReviewTransactions,
   updateTransactionCategory,
   getPnL,
@@ -12,6 +13,7 @@ const {
   getVariances,
   getVarianceDriversController,
   getReviewSummary,
+  askAnalyst,
 } = require("../controllers/transactionController");
 
 const router = express.Router();
@@ -66,5 +68,11 @@ router.get(
 router.get("/review-summary", getReviewSummary);
 router.get("/reviews", getReviewTransactions);
 
+router.get(
+  "/analyst/context",
+  getAnalystContextController
+);
+
+router.post("/analyst/ask", askAnalyst);
 
 module.exports = router;

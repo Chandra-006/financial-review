@@ -9,96 +9,56 @@ import {
 import Dashboard from "./pages/Dashboard";
 import Review from "./pages/Review";
 import Variances from "./pages/Variances";
+import Analyst from "./pages/Analyst";
 
-import "./index.css";
+const navItems = [
+  { label: "Dashboard", to: "/dashboard" },
+  { label: "Review", to: "/review" },
+  { label: "Variances", to: "/variances" },
+  { label: "AI Analyst", to: "/analyst" },
+];
 
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="app">
+      <div className="min-h-screen bg-slate-100 text-slate-900">
+        <nav className="sticky top-0 z-20 border-b border-slate-200 bg-white/85 backdrop-blur-md">
+          <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <div className="text-xl font-black tracking-[0.22em] text-indigo-600">
+              FINZ
+            </div>
 
-        <nav className="app-nav">
-
-          <div className="app-brand">
-            FINZ
+            <div className="flex flex-wrap items-center gap-2">
+              {navItems.map(({ label, to }) => (
+                <NavLink
+                  key={to}
+                  to={to}
+                  className={({ isActive }) =>
+                    [
+                      "rounded-full px-4 py-2 text-sm font-medium transition",
+                      isActive
+                        ? "bg-indigo-600 text-white shadow-sm"
+                        : "text-slate-600 hover:bg-slate-100 hover:text-slate-900",
+                    ].join(" ")
+                  }
+                >
+                  {label}
+                </NavLink>
+              ))}
+            </div>
           </div>
-
-          <div className="app-links">
-
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Dashboard
-            </NavLink>
-
-            <NavLink
-              to="/review"
-              className={({ isActive }) =>
-                isActive ? "nav-link active" : "nav-link"
-              }
-            >
-              Review
-            </NavLink>
-
-           <NavLink
-              to="/variances"
-              className={({ isActive }) =>
-                isActive
-                  ? "nav-link active"
-                  : "nav-link"
-              }
-            >
-              Variances
-            </NavLink>
-
-          </div>
-
         </nav>
 
-        <main>
+        <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <Routes>
-
-            <Route
-              path="/"
-              element={
-                <Navigate
-                  to="/dashboard"
-                  replace
-                />
-              }
-            />
-
-            <Route
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-
-            <Route
-              path="/review"
-              element={<Review />}
-            />
-
-            <Route
-              path="/variances"
-              element={<Variances />}
-            />
-
-            <Route
-              path="*"
-              element={
-                <Navigate
-                  to="/dashboard"
-                  replace
-                />
-              }
-            />
-
+            <Route path="/" element={<Navigate to="/dashboard" replace />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/review" element={<Review />} />
+            <Route path="/variances" element={<Variances />} />
+            <Route path="/analyst" element={<Analyst />} />
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
           </Routes>
         </main>
-
       </div>
     </BrowserRouter>
   );

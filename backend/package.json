@@ -17,14 +17,18 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
+    "@google/genai": "^2.24.0",
     "cors": "^2.8.5",
     "csv-parse": "^6.1.0",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "multer": "^2.0.2",
+    "openai": "^7.23.0",
     "pg": "^8.16.3"
   },
   "devDependencies": {
+    "@ljharb/tsconfig": "^0.3.2",
     "nodemon": "^3.1.10"
   }
 }

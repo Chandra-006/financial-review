@@ -1,5 +1,28 @@
 const pool = require("../config/database");
 
+const getTransactionEvidence = async () => {
+  const result = await pool.query(`
+    SELECT
+      transaction_id,
+      transaction_date,
+      description,
+      counterparty,
+      amount,
+      category
+    FROM transactions
+    WHERE is_pnl = TRUE
+    ORDER BY transaction_date DESC, ABS(amount) DESC
+  `);
+
+  return result.rows.map((row) => ({
+    transactionId: row.transaction_id,
+    date: row.transaction_date,
+    description: row.description,
+    counterparty: row.counterparty,
+    amount: Number(row.amount),
+    category: row.category,
+  }));
+};
 const getAnalystContext = async () => {
   // 1. Overall P&L
   const pnlResult = await pool.query(`
@@ -201,7 +224,7 @@ const getAnalystContext = async () => {
         ),
       })),
 
-    categories:
+        categories:
       categoryResult.rows.map((row) => ({
         category: row.category,
         transactionCount: Number(
@@ -211,6 +234,8 @@ const getAnalystContext = async () => {
           row.total_amount
         ),
       })),
+
+    transactions: await getTransactionEvidence(),
   };
 };
 

@@ -5,14 +5,16 @@ require("dotenv").config();
 const pool = require("./config/database");
 const transactionRoutes = require("./routes/transactionRoutes");
 
-
+// Create the Express application and expose the API routes used by the frontend.
 const app = express();
 
 const PORT = process.env.PORT || 5000;
 
+// Enable CORS for browser-based API access and parse incoming JSON requests.
 app.use(cors());
 app.use(express.json());
 
+// Route all transaction-related endpoints through the dedicated controller layer.
 app.use("/api/transactions", transactionRoutes);
 
 app.get("/", (req, res) => {

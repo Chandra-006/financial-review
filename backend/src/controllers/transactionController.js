@@ -5,6 +5,10 @@ const { calculateVariances,} = require("../services/varianceService");
 const {
   getVarianceDrivers,
 } = require("../services/driverService");
+const {
+  getAnalystContext,
+} = require("../services/analystService");
+const { answerQuestion } = require("../services/analystQuestionService");
 const pool = require("../config/database");
 
 
@@ -516,10 +520,69 @@ const getReviewSummary = async (req, res) => {
   }
 };
 
+const getAnalystContextController = async (
+  req,
+  res
+) => {
+  try {
+    const context =
+      await getAnalystContext();
+
+    res.json({
+      success: true,
+      context,
+    });
+  } catch (error) {
+    console.error(
+      "Analyst context error:",
+      error
+    );
+
+    res.status(500).json({
+      success: false,
+      message:
+        "Failed to build analyst context",
+      error: error.message,
+    });
+  }
+};
+
+const askAnalyst = async (req, res) => {
+  try {
+    const { question } = req.body;
+
+    if (!question || !question.trim()) {
+      return res.status(400).json({
+        success: false,
+        message: "Question is required",
+      });
+    }
+
+    const result = await answerQuestion(question);
+
+    res.json({
+      success: true,
+      question,
+      ...result,
+    });
+  } catch (error) {
+    console.error("Analyst question error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "Failed to answer analyst question",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   uploadTransactions,
   getTransactions,
   categorizeAllTransactions,
+  getAnalystContextController,
+  updateTransactionCategory,
+  getReviewTransactions,
   getReviewSummary,
   getVariances,
   getReviewTransactions,
@@ -527,4 +590,5 @@ module.exports = {
   getPnL,
   getMonthlyPnL,
   getVarianceDriversController,
+  askAnalyst,
 };
