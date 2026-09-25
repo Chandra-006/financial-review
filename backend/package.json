@@ -1,0 +1,30 @@
+{
+  "name": "financial-review-backend",
+  "version": "1.0.0",
+  "description": "FinZ AI-Native Financial Review Backend",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "finz",
+    "finance",
+    "financial-analysis",
+    "ai",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "multer": "^2.0.2",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}

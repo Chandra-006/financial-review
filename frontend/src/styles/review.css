@@ -1,0 +1,181 @@
+.review-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f6f7f9;
+  color: #17181a;
+}
+
+.review-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.review-eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.review-header h1 {
+  margin: 0;
+  font-size: 36px;
+}
+
+.review-header p {
+  color: #666;
+}
+
+.review-count {
+  min-width: 130px;
+  padding: 18px 20px;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.review-count span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.review-count strong {
+  font-size: 28px;
+}
+
+.review-table-container {
+  overflow-x: auto;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+.review-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.review-table th,
+.review-table td {
+  padding: 16px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.review-table th {
+  background: #fafafa;
+  font-size: 13px;
+  color: #555;
+}
+
+.review-table td {
+  font-size: 14px;
+}
+
+.review-table tbody tr:hover {
+  background: #fafafa;
+}
+
+.category-badge {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #f1f3f5;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.empty-state {
+  padding: 60px;
+  text-align: center;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+}
+
+@media (max-width: 700px) {
+  .review-page {
+    padding: 20px;
+  }
+
+  .review-header {
+    flex-direction: column;
+  }
+
+  .review-header h1 {
+    font-size: 28px;
+  }
+}
+
+.review-button,
+.save-button,
+.cancel-button {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.review-button {
+  background: #17181a;
+  color: white;
+}
+
+.save-button {
+  background: #17181a;
+  color: white;
+}
+
+.cancel-button {
+  background: #eeeeee;
+  color: #333;
+}
+
+.review-button:hover,
+.save-button:hover {
+  opacity: 0.85;
+}
+
+.review-button:disabled,
+.save-button:disabled,
+.cancel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.category-select {
+  min-width: 170px;
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: white;
+}
+
+.correction-actions {
+  min-width: 220px;
+}
+
+.correction-reason {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
