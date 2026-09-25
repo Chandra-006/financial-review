@@ -11,6 +11,7 @@ const calculatePnL = async () => {
     ORDER BY category
   `);
 
+    // Fetch one total per P&L category so the summary can be calculated in code.
   const totals = {
     REVENUE: 0,
     COGS: 0,
@@ -78,6 +79,7 @@ const calculateMonthlyPnL = async () => {
 
     const total = Number(row.total);
 
+      // Keep revenue positive and represent expense categories as positive costs.
     switch (row.category) {
       case "REVENUE":
         monthlyData[month].revenue += total;
@@ -102,6 +104,7 @@ const calculateMonthlyPnL = async () => {
 
   return Object.entries(monthlyData).map(
     ([month, data]) => {
+        // Derive monthly profitability from the normalized category totals.
       const grossProfit =
         data.revenue - data.cogs;
 

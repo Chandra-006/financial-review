@@ -3,6 +3,7 @@ import {
   getVariances,
   getVarianceDrivers,
 } from "../services/api";
+import "../styles/variances.css";
 
 const formatCurrency = (value) => {
   return `₹${Number(value).toLocaleString("en-IN", {

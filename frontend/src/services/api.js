@@ -12,6 +12,11 @@ export const getReviewSummary = async () => {
   return response.data;
 };
 
+export const getTransactions = async () => {
+  const response = await api.get("/transactions");
+  return response.data;
+};
+
 export const getPnL = async () => {
   const response = await api.get("/transactions/pnl");
   return response.data;
@@ -35,9 +40,7 @@ export const getReviewTransactions = async () => {
 
 export const updateTransactionCategory = async (
   transactionId,
-  newCategory,
-  reason,
-  isPnl
+  { newCategory, reason, isPnl }
 ) => {
   const response = await api.put(
     `/transactions/categories/${transactionId}`,

@@ -3,6 +3,7 @@ import {
   getReviewTransactions,
   updateTransactionCategory,
 } from "../services/api";
+import "../styles/review.css";
 
 const CATEGORIES = [
   "REVENUE",
@@ -53,7 +54,35 @@ const Review = () => {
   };
 
   useEffect(() => {
-    loadReviews();
+    let cancelled = false;
+
+    const loadInitialReviews = async () => {
+      try {
+        setError("");
+
+        const response = await getReviewTransactions();
+
+        if (!cancelled) {
+          setTransactions(response.transactions || []);
+        }
+      } catch (error) {
+        console.error(error);
+
+        if (!cancelled) {
+          setError("Failed to load review transactions.");
+        }
+      } finally {
+        if (!cancelled) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadInitialReviews();
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   const startEditing = (transaction) => {

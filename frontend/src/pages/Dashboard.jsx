@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import {
   getReviewSummary,
+  getTransactions,
   getPnL,
   getMonthlyPnL,
 } from "../services/api";
@@ -10,6 +11,9 @@ const Dashboard = () => {
   const [summary, setSummary] = useState(null);
   const [pnl, setPnl] = useState(null);
   const [monthlyPnL, setMonthlyPnL] = useState([]);
+  const [categoryBreakdown, setCategoryBreakdown] = useState([]);
+  const [transactions, setTransactions] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -19,13 +23,16 @@ const Dashboard = () => {
       try {
         setLoading(true);
 
-        const [summaryResponse, pnlResponse, monthlyResponse] = await Promise.all([
+        const [summaryResponse, transactionsResponse, pnlResponse, monthlyResponse] = await Promise.all([
           getReviewSummary(),
+          getTransactions(),
           getPnL(),
           getMonthlyPnL(),
         ]);
 
         setSummary(summaryResponse.summary);
+        setCategoryBreakdown(summaryResponse.categories || []);
+        setTransactions(transactionsResponse.transactions || []);
         setPnl(pnlResponse.pnl);
         setMonthlyPnL(monthlyResponse.months);
       } catch (err) {
@@ -118,13 +125,79 @@ const Dashboard = () => {
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {summary?.categories?.map((category) => (
-            <div key={category.category} className="flex items-center justify-between rounded-2xl bg-slate-50 p-4">
+          {categoryBreakdown.map((category) => (
+            <button
+              key={category.category}
+              type="button"
+              onClick={() => setSelectedCategory(category.category)}
+              className={`flex items-center justify-between rounded-2xl border p-4 text-left transition ${
+                selectedCategory === category.category
+                  ? "border-indigo-500 bg-indigo-50 ring-2 ring-indigo-100"
+                  : "border-transparent bg-slate-50 hover:border-indigo-200 hover:bg-indigo-50"
+              }`}
+            >
               <span className="font-medium text-slate-700">{category.category}</span>
               <strong className="text-xl font-bold text-slate-900">{category.count}</strong>
-            </div>
+            </button>
           ))}
         </div>
+
+        {selectedCategory && (
+          <div className="mt-6 rounded-2xl border border-indigo-100 bg-indigo-50/60 p-5">
+            <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h3 className="text-xl font-bold text-slate-900">
+                  {selectedCategory} transactions
+                </h3>
+                <p className="text-sm text-slate-600">
+                  {transactions.filter((transaction) => transaction.category === selectedCategory).length} transactions in this category
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setSelectedCategory(null)}
+                className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                Close
+              </button>
+            </div>
+
+            <div className="max-h-96 overflow-auto rounded-xl border border-indigo-100 bg-white">
+              <table className="min-w-full text-left text-sm">
+                <thead className="sticky top-0 bg-slate-100 text-xs uppercase tracking-wide text-slate-600">
+                  <tr>
+                    <th className="px-4 py-3">Transaction</th>
+                    <th className="px-4 py-3">Description</th>
+                    <th className="px-4 py-3">Counterparty</th>
+                    <th className="px-4 py-3">Amount</th>
+                    <th className="px-4 py-3">Review</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 text-slate-700">
+                  {transactions
+                    .filter((transaction) => transaction.category === selectedCategory)
+                    .map((transaction) => (
+                      <tr key={transaction.transaction_id} className="hover:bg-slate-50">
+                        <td className="whitespace-nowrap px-4 py-3 font-semibold text-slate-900">
+                          {transaction.transaction_id}
+                        </td>
+                        <td className="min-w-56 px-4 py-3">{transaction.description}</td>
+                        <td className="min-w-44 px-4 py-3">{transaction.counterparty}</td>
+                        <td className="whitespace-nowrap px-4 py-3">
+                          ₹{Number(transaction.amount).toLocaleString("en-IN", {
+                            minimumFractionDigits: 2,
+                          })}
+                        </td>
+                        <td className="whitespace-nowrap px-4 py-3">
+                          {transaction.is_review_required ? "Needs review" : "Reviewed"}
+                        </td>
+                      </tr>
+                    ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </section>
     </div>
   );

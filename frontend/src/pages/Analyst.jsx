@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { askAnalyst } from "../services/api";
 import "../styles/analyst.css";
 

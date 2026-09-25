@@ -19,6 +19,8 @@ const calculateVariances = async () => {
   result.rows.forEach((row) => {
     const month = row.month;
     const total = Number(row.total);
+      // Aggregate P&L transactions by month and category before calculating
+      // month-over-month changes.
 
     if (!monthlyData[month]) {
       monthlyData[month] = {
@@ -34,6 +36,8 @@ const calculateVariances = async () => {
         monthlyData[month].revenue += total;
         break;
 
+        // Expenses are displayed as positive costs even if the ledger stores
+        // them as negative amounts.
       case "COGS":
         monthlyData[month].cogs += Math.abs(total);
         break;
@@ -61,11 +65,15 @@ const calculateVariances = async () => {
 
     const operatingProfit =
       grossProfit -
+        // Recreate the same P&L relationships used by the dashboard:
+        // gross profit = revenue - COGS, then subtract operating costs.
       data.payroll -
       data.operatingExpenses;
 
     return {
       month,
+      // The first month has no prior period, so variance reporting starts at the
+      // second month in chronological order.
       revenue: Number(data.revenue.toFixed(2)),
       cogs: Number(data.cogs.toFixed(2)),
       grossProfit: Number(grossProfit.toFixed(2)),
@@ -87,6 +95,7 @@ const calculateVariances = async () => {
 
     const metrics = [
       "revenue",
+            // A zero prior value has no meaningful percentage variance.
       "cogs",
       "grossProfit",
       "payroll",

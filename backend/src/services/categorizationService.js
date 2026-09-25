@@ -17,6 +17,8 @@ const categorizeTransaction = (transaction) => {
   ).toLowerCase();
 
   const text = `${description} ${counterparty}`;
+  // Matching both fields allows a transaction to be recognized from either
+  // its description or the company/person involved in the transaction.
 
   // -------------------------
   // REVENUE
@@ -124,6 +126,8 @@ const categorizeTransaction = (transaction) => {
   // OTHER / REVIEW
   // -------------------------
 
+  // Unknown transactions are kept visible for manual review instead of being
+  // silently assigned to a potentially incorrect financial category.
   return {
     category: CATEGORY.OTHER,
     confidence: 0.50,

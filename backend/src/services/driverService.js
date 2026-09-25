@@ -1,6 +1,7 @@
 const pool = require("../config/database");
 
 const getVarianceDrivers = async () => {
+  // Only P&L transactions can explain changes in monthly financial results.
   const result = await pool.query(`
     SELECT
       TO_CHAR(transaction_date, 'YYYY-MM') AS month,
@@ -17,6 +18,7 @@ const getVarianceDrivers = async () => {
 
   const monthlyTransactions = {};
 
+  // Build a month-indexed collection so each month can be compared as a unit.
   result.rows.forEach((transaction) => {
     const month = transaction.month;
 
@@ -38,6 +40,7 @@ const getVarianceDrivers = async () => {
 
   const drivers = [];
 
+  // Compare each month with the immediately preceding month.
   for (let i = 1; i < months.length; i++) {
     const previousMonth = months[i - 1];
     const currentMonth = months[i];
@@ -50,6 +53,7 @@ const getVarianceDrivers = async () => {
 
     const categoryChanges = {};
 
+    // These categories match the financial measures shown in the variance view.
     const categories = [
       "REVENUE",
       "COGS",
@@ -58,6 +62,8 @@ const getVarianceDrivers = async () => {
     ];
 
     categories.forEach((category) => {
+      // Summing the absolute values keeps expense changes readable as costs,
+      // even when expenses are stored as negative ledger amounts.
       const previousTotal = previousTransactions
         .filter((transaction) => transaction.category === category)
         .reduce(
@@ -90,6 +96,8 @@ const getVarianceDrivers = async () => {
       })),
     ];
 
+    // Large transactions are the most useful starting points when explaining
+    // why a month changed, so rank them by magnitude and keep the top ten.
     transactionMovements.sort(
       (a, b) =>
         Math.abs(b.signedAmount) -
