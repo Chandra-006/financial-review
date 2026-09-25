@@ -19,6 +19,21 @@ This application is designed around a simple business workflow:
 
 I wanted a project that feels like a real financial operations tool rather than just a basic dashboard. The goal was to combine data review, business metrics, and intelligence in one place so I can quickly understand what is happening in the financial data and what needs attention.
 
+## Repository
+
+The project repository is called `financial-review` and is hosted on GitHub:
+
+https://github.com/Chandra-006/financial-review
+
+To clone the project to your computer, open a terminal and run:
+
+```bash
+git clone https://github.com/Chandra-006/financial-review.git
+cd financial-review
+```
+
+After cloning, install and run the backend and frontend from their respective folders as described in the setup section below.
+
 ## Project structure
 
 ```text
