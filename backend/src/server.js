@@ -1,10 +1,19 @@
 /**
  * FinZ Financial Review backend entry point.
  *
- * This file boots the Express application, loads environment variables, wires up
- * routing, and exposes the health endpoint used by the frontend and deployment
- * monitoring. The API is intentionally separated into route, controller, and
- * service layers so the business logic remains easy to follow and extend.
+ * This is the backend brain of the project. It starts the Express server, loads
+ * the environment configuration, and connects the frontend to the financial data
+ * flow.
+ *
+ * Interviewer-friendly flow:
+ * 1. Frontend sends a request to /api/transactions
+ * 2. Routes forward the request to the controller
+ * 3. Controller reads or updates PostgreSQL data
+ * 4. Services calculate P&L, variance, and review summaries
+ * 5. Frontend displays the results in the dashboard and analyst screens
+ *
+ * In simple terms: this server is where the app stores transactions, calculates
+ * the financial metrics, and answers business questions from the dataset.
  */
 const express = require("express");
 const cors = require("cors");

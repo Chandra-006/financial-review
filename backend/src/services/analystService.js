@@ -1,8 +1,14 @@
 /**
  * Analyst context builder for the AI financial review workflow.
  *
- * This service gathers the transaction evidence, P&L totals, monthly summaries,
- * and review queue state that the frontend and AI analyst rely on.
+ * This service prepares the raw financial dataset that the AI analyst can answer
+ * questions against. It calculates the overall P&L, monthly performance, review
+ * queue items, and category totals in one structured object.
+ *
+ * Why this matters:
+ * the AI is not working from free-form memory; it is answering against actual
+ * transaction and P&L data from the database. That makes the answers grounded in
+ * the business numbers rather than vague estimates.
  */
 const pool = require("../config/database");
 

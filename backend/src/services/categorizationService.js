@@ -1,8 +1,15 @@
 /**
  * Transaction categorization rules.
  *
- * These heuristics map common business descriptions to FINZ account categories,
- * while flagging low-confidence or unusual entries for human review.
+ * This is the rule engine that decides whether a transaction is revenue, COGS,
+ * payroll, operating expense, or something that needs a human review.
+ *
+ * Example: if the description contains "rent" or "insurance", it is classified as
+ * an operating expense; if it contains "payroll", it is categorized as payroll.
+ * Anything that is unclear is not guessed silently—it is sent to the review queue.
+ *
+ * This is important because all later financial reporting depends on correct
+ * category assignment.
  */
 const CATEGORY = {
   REVENUE: "REVENUE",

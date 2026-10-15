@@ -1,8 +1,13 @@
 /**
  * Transaction review workflow page.
  *
- * Users can inspect transactions flagged for review, correct the category,
- * add a reasoning note, and send the updated classification back to the API.
+ * This is the human-in-the-loop part of the application. Transactions that have
+ * low-confidence or ambiguous categories are surfaced here so a user can review
+ * them and correct the classification manually.
+ *
+ * This is critical because the financial reports depend on clean categorization.
+ * If a transaction is wrongly classified, the dashboard and P&L numbers become
+ * unreliable. This page acts as the quality control step before reporting.
  */
 import { useEffect, useState } from "react";
 import {

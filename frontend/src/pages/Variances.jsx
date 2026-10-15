@@ -1,8 +1,14 @@
 /**
  * Variance analysis page.
  *
- * This screen compares monthly changes in revenue, expenses, and profit, and
- * highlights the transactions most likely responsible for each period change.
+ * This page explains why the business performance changed from one month to the
+ * next. It compares the current month against the previous month and calculates the
+ * change in revenue, COGS, payroll, and operating expenses.
+ *
+ * The value of this view is that it turns raw numbers into business insight. It
+ * answers questions like: Did profit go up because revenue grew or because costs
+ * fell? That is exactly the kind of analysis an interviewer usually wants to hear
+ * about in a finance-focused project.
  */
 import { useEffect, useState } from "react";
 import {

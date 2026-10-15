@@ -1,8 +1,12 @@
 /**
  * App shell for the Financial Review frontend.
  *
- * This is the top-level router and navigation layer that directs users between the
- * dashboard, review queue, variance view, and AI analyst workflows.
+ * This is the main navigation layer of the app. It decides which screen the user
+ * sees and makes the application feel like a real workflow: dashboard -> review ->
+ * variance analysis -> AI question answering.
+ *
+ * In an interview, this is the part I would point to to explain how the product is
+ * structured as a multi-page business workflow rather than a single static page.
  */
 import {
   BrowserRouter,

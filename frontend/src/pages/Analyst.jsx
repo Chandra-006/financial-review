@@ -1,9 +1,13 @@
 /**
  * AI Analyst page.
  *
- * This screen lets users ask plain-language financial questions. The frontend
- * sends the prompt to the backend, which uses dataset context to produce a
- * grounded business answer with supporting evidence.
+ * This is the natural-language layer on top of the financial data. A user can ask
+ * questions such as "Why did operating profit increase in March?" and the app
+ * uses the actual transaction and P&L context to answer.
+ *
+ * In product terms, this is where the project moves from simple reporting to
+ * decision support. The user is no longer manually searching numbers; the system
+ * explains the story behind the business performance.
  */
 import { useState } from "react";
 import { askAnalyst } from "../services/api";

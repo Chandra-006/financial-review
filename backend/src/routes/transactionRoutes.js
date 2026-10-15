@@ -1,8 +1,18 @@
 /**
  * API route definitions for the financial review workflow.
  *
- * Each route is mapped to a controller function so the request/response layer
- * stays thin and the database and business logic live in the service layer.
+ * Think of this file as the front door of the backend. Every request from the
+ * React frontend enters here first, and then the app decides which function must
+ * handle it.
+ *
+ * Route categories:
+ * - data import: upload CSV files
+ * - review workflow: inspect and correct categories
+ * - reporting: P&L, variances, and dashboard summaries
+ * - AI analysis: natural-language financial questions
+ *
+ * This separation keeps the project easy to explain: routes handle requests, the
+ * controller handles business operations, services do the calculations.
  */
 const express = require("express");
 const multer = require("multer");

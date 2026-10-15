@@ -1,8 +1,12 @@
 /**
  * Main dashboard for the FINZ financial review app.
  *
- * This screen shows the operating health of the business with summary metrics,
- * monthly P&L values, and category-level transaction breakdowns.
+ * This is the first business-facing screen. It presents the most important numbers
+ * such as total transactions, review count, revenue, and operating profit, so a
+ * manager can quickly understand the business health at a glance.
+ *
+ * In the product story, the dashboard is the executive summary: it pulls together
+ * the cleaned transaction data and the calculated P&L metrics into one place.
  */
 import { useEffect, useState } from "react";
 import {
