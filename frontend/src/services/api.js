@@ -1,12 +1,18 @@
+/**
+ * Shared HTTP client for the frontend.
+ *
+ * The app uses a single Axios instance so all pages interact with the backend in a
+ * consistent way and the API base URL can be changed in one place.
+ */
 import axios from "axios";
 
-// Shared API client for all frontend pages. Centralizing the base URL keeps
-// the application easier to maintain when moving between local and deployed APIs.
+// Shared API client for all frontend pages. Centralizing the base URL keeps the
+// application easier to maintain when moving between local and deployed APIs.
 const api = axios.create({
   baseURL: "http://localhost:5000/api",
 });
 
-// Dashboard
+// Dashboard data endpoints.
 export const getReviewSummary = async () => {
   const response = await api.get("/transactions/review-summary");
   return response.data;
@@ -32,7 +38,7 @@ export const getVariances = async () => {
   return response.data;
 };
 
-// Review
+// Review workflow endpoints.
 export const getReviewTransactions = async () => {
   const response = await api.get("/transactions/reviews");
   return response.data;
@@ -54,13 +60,13 @@ export const updateTransactionCategory = async (
   return response.data;
 };
 
-// Variance drivers
+// Variance driver analysis endpoint.
 export const getVarianceDrivers = async () => {
   const response = await api.get("/transactions/variances/drivers");
   return response.data;
 };
 
-// AI Analyst
+// AI Analyst question endpoint.
 export const askAnalyst = async (question) => {
   const response = await api.post("/transactions/analyst/ask", {
     question,

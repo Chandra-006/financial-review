@@ -1,3 +1,9 @@
+/**
+ * App shell for the Financial Review frontend.
+ *
+ * This is the top-level router and navigation layer that directs users between the
+ * dashboard, review queue, variance view, and AI analyst workflows.
+ */
 import {
   BrowserRouter,
   Routes,
@@ -11,6 +17,7 @@ import Review from "./pages/Review";
 import Variances from "./pages/Variances";
 import Analyst from "./pages/Analyst";
 
+// Navigation labels and paths used across the application shell.
 const navItems = [
   { label: "Dashboard", to: "/dashboard" },
   { label: "Review", to: "/review" },

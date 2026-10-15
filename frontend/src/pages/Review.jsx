@@ -1,3 +1,9 @@
+/**
+ * Transaction review workflow page.
+ *
+ * Users can inspect transactions flagged for review, correct the category,
+ * add a reasoning note, and send the updated classification back to the API.
+ */
 import { useEffect, useState } from "react";
 import {
   getReviewTransactions,

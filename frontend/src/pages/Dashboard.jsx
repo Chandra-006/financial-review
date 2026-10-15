@@ -1,3 +1,9 @@
+/**
+ * Main dashboard for the FINZ financial review app.
+ *
+ * This screen shows the operating health of the business with summary metrics,
+ * monthly P&L values, and category-level transaction breakdowns.
+ */
 import { useEffect, useState } from "react";
 import {
   getReviewSummary,

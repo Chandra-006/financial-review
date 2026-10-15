@@ -1,3 +1,10 @@
+/**
+ * AI Analyst page.
+ *
+ * This screen lets users ask plain-language financial questions. The frontend
+ * sends the prompt to the backend, which uses dataset context to produce a
+ * grounded business answer with supporting evidence.
+ */
 import { useState } from "react";
 import { askAnalyst } from "../services/api";
 import "../styles/analyst.css";

@@ -1,3 +1,9 @@
+/**
+ * Monthly variance calculator.
+ *
+ * This service compares financial metrics from one month to the next and exposes
+ * the absolute and percentage change for the frontend variance dashboard.
+ */
 const pool = require("../config/database");
 
 const calculateVariances = async () => {

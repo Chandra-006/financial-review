@@ -1,3 +1,9 @@
+/**
+ * Transaction categorization rules.
+ *
+ * These heuristics map common business descriptions to FINZ account categories,
+ * while flagging low-confidence or unusual entries for human review.
+ */
 const CATEGORY = {
   REVENUE: "REVENUE",
   COGS: "COGS",

@@ -1,3 +1,9 @@
+/**
+ * Variance analysis page.
+ *
+ * This screen compares monthly changes in revenue, expenses, and profit, and
+ * highlights the transactions most likely responsible for each period change.
+ */
 import { useEffect, useState } from "react";
 import {
   getVariances,

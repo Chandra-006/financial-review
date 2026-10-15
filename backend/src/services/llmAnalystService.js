@@ -1,9 +1,11 @@
-const { GoogleGenAI } = require("@google/genai");
+/**
+ * LLM bridge for AI analyst questions.
+ *
+ * This service sends the current financial context to a Groq-backed OpenAI
+ * compatible endpoint and normalizes the returned JSON so the application can
+ * render consistent answers for user questions.
+ */
 const OpenAI = require("openai");
-
-const geminiClient = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
-});
 
 const groqClient = new OpenAI({
   apiKey: process.env.GROQ_API_KEY,
@@ -37,32 +39,6 @@ const parseModelOutput = (rawText) => {
   }
 };
 
-const callGemini = async (question, context) => {
-  const response = await geminiClient.models.generateContent({
-    model: "gemini-3.8-flash",
-    contents: [
-      {
-        role: "user",
-        parts: [
-          {
-            text: `${SYSTEM_PROMPT}\n\nDATA:\n${JSON.stringify(
-              context
-            )}\n\nQUESTION: ${question}`,
-          },
-        ],
-      },
-    ],
-  });
-
-  const text = response.text;
-
-  if (!text) {
-    throw new Error("No text response from Gemini");
-  }
-
-  return parseModelOutput(text);
-};
-
 const callGroq = async (question, context) => {
   const completion = await groqClient.chat.completions.create({
     model: "openai/gpt-oss-120b",
@@ -88,19 +64,10 @@ const callGroq = async (question, context) => {
 
 const answerWithLLM = async (question, context) => {
   try {
-    return await callGemini(question, context);
-  } catch (geminiError) {
-    console.error(
-      "Gemini failed, falling back to Groq:",
-      geminiError.message
-    );
-
-    try {
-      return await callGroq(question, context);
-    } catch (groqError) {
-      console.error("Groq also failed:", groqError.message);
-      throw groqError;
-    }
+    return await callGroq(question, context);
+  } catch (error) {
+    console.error("Groq failed:", error.message);
+    throw error;
   }
 };
 

@@ -1,3 +1,9 @@
+/**
+ * Variance driver analysis service.
+ *
+ * This service calculates which transactions or category shifts most influenced a
+ * month-over-month change in P&L, making the variance view more explainable.
+ */
 const pool = require("../config/database");
 
 const getVarianceDrivers = async () => {

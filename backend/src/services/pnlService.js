@@ -1,3 +1,9 @@
+/**
+ * P&L aggregation service.
+ *
+ * This file combines transaction categories into the totals shown on the dashboard
+ * and in the AI analyst context, including both overall and monthly results.
+ */
 const pool = require("../config/database");
 
 const calculatePnL = async () => {

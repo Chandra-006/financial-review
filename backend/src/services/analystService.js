@@ -1,3 +1,9 @@
+/**
+ * Analyst context builder for the AI financial review workflow.
+ *
+ * This service gathers the transaction evidence, P&L totals, monthly summaries,
+ * and review queue state that the frontend and AI analyst rely on.
+ */
 const pool = require("../config/database");
 
 const getTransactionEvidence = async () => {

@@ -1,3 +1,10 @@
+/**
+ * Rule-based financial analyst response service.
+ *
+ * This service builds natural-language answers from the calculated P&L and
+ * monthly dataset without requiring a remote AI call for the majority of common
+ * questions such as revenue, payroll, profit, and variance explanations.
+ */
 const { getAnalystContext } = require("./analystService");
 const { answerWithLLM } = require("./llmAnalystService");
 

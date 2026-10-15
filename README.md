@@ -15,6 +15,38 @@ This application is designed around a simple business workflow:
 - compare monthly performance and spot variance changes
 - use AI to answer business questions from the actual dataset
 
+## Application flow
+
+This application follows a practical financial review workflow from raw transaction data to business insight:
+
+```mermaid
+flowchart LR
+    A[Upload CSV file] --> B[Backend stores transactions]
+    B --> C[Review page]
+    C --> D[Correct / assign categories]
+    D --> E[PostgreSQL data updated]
+    E --> F[Dashboard metrics]
+    F --> G[P&L and monthly summaries]
+    G --> H[Variances page]
+    H --> I[Identify drivers and changes]
+    I --> J[AI Analyst]
+    J --> K[Business insights and answers]
+
+    C -->|unclear entries| D
+    E -->|financial calculations| F
+    F -->|performance comparison| H
+    H -->|context for questions| J
+```
+
+1. Data intake: the user uploads a CSV file containing financial transactions. The backend reads the file, validates the data, and stores the records in PostgreSQL.
+2. Review and categorization: transactions are checked for classification quality. Items that are unclear or require judgment are surfaced in the Review page, where the user can assign or correct categories and record the reason for the change.
+3. Financial aggregation: once transactions are categorized, the backend calculates revenue, expenses, operating profit, P&L totals, and monthly summaries for the dashboard.
+4. Trend and variance analysis: the Variances page compares changes across periods and highlights the main drivers behind increases or decreases in revenue, payroll, operating costs, and profitability.
+5. Business questions and insight: the AI Analyst page lets the user ask natural-language questions about the dataset, with answers grounded in the actual transaction and P&L data.
+6. Navigation: the frontend routes users through Dashboard, Review, Variances, and AI Analyst pages, creating a continuous flow from raw data to business understanding.
+
+In short, the app moves from imported transactions -> reviewed categories -> dashboard metrics -> variance analysis -> AI-assisted insight.
+
 ## Why I built it
 
 I wanted a project that feels like a real financial operations tool rather than just a basic dashboard. The goal was to combine data review, business metrics, and intelligence in one place so I can quickly understand what is happening in the financial data and what needs attention.
